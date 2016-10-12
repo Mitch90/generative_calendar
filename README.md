@@ -1,2 +1,3 @@
 # generative_calendar
-p5 script that creates a geometric figure based on date and location parameters
+Generative visual calendar. Based on various date and location parameters, creates a geometric figure.
+Made using p5js, data courtesy of The Weather Company, LLC.
