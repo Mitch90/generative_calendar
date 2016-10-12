@@ -60,6 +60,7 @@ function setup() {
     createCanvas(600, 600);
     frameRate(24);
     angleMode(DEGREES);
+    //update planets speed woth current Date
     planet01.speed = month();
     planet02.speed = day();
 }
@@ -89,9 +90,13 @@ function draw() {
         y1: sin(planet02.position * planet02.speed) * planet02.radius
 
     };
+
+    //stop drawing lines after a while
     if (angle <= 360) {
         lines.push(newLine);
     }
+
+    //draw lines
     stroke(lineColor, 50)
     for (var i = 0; i < lines.length; i++) {
         line(lines[i].x0, lines[i].y0, lines[i].x1, lines[i].y1);
@@ -107,10 +112,11 @@ function draw() {
 }
 
 function loadTemperature(data) {
-    //console.log(data);
+    //update text with current location and temperature
     var observation = data.current_observation;
     cityName = observation.display_location.city;
     currentTemp = observation.temp_c + "°C";
+
     //calculate correct color for temperature
     var hotColor = color(255,0,0, 80),
         coldColor = color(0,255,255, 80),
@@ -118,17 +124,23 @@ function loadTemperature(data) {
         high = 45,
         lerpAmount = map(observation.temp_c, low, high, 0, 1);
     lineColor = lerpColor(coldColor, hotColor, lerpAmount);
+
+    //update small orbit with current wind
     planet02.radius = round(map(observation.wind_kph, 0, maxWind, 100, 225));
 }
 
 function getRange(data) {
-    //console.log(data);
+    //restart drawing now that everything is loaded
     angle = 0;
     lines = [];
+
+    //update planets sizes with high and low temperature of the day
     var forecast = data.forecast.simpleforecast.forecastday[0];
     maxWind = forecast.maxwind.kph;
     planet01.dimension = forecast.high.celsius * 2;
     planet02.dimension = forecast.low.celsius * 2;
+
+    //update large orbit with max wind of the day
     planet01.radius = round(map(maxWind, 0, maxWind, 100, 225));
 }
 
