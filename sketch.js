@@ -22,14 +22,14 @@ var lines = [],
         speed: 5,
         radius: 200,
         dimension: 22,
-        colour: [76, 155, 215]
+        colour: [237, 175, 0]
     },
     planet02 = {
         position: 0,
         speed: 8,
         radius: 150,
         dimension: 15,
-        colour: [255, 102, 0]
+        colour: [0, 161, 141]
     };
 
 function preload() {
@@ -118,8 +118,8 @@ function loadTemperature(data) {
     currentTemp = observation.temp_c + "°C";
 
     //calculate correct color for temperature
-    var hotColor = color(255,0,0, 80),
-        coldColor = color(0,255,255, 80),
+    var hotColor = color(237, 175, 0, 80),
+        coldColor = color(0, 161, 141, 80),
         low = -20,
         high = 45,
         lerpAmount = map(observation.temp_c, low, high, 0, 1);
